@@ -46,3 +46,15 @@ def encode_data(df):
     df['Contract'] = df['Contract'].map({'Month-to-month': 0, 'One year': 1, 'Two year': 2})
     
     return df
+
+
+def f1_score(y_pred, target_pred):
+    fp = ((y_pred == 1) & (target_pred == 0)).sum()
+    fn = ((y_pred == 0) & (target_pred == 1)).sum()
+    tp = ((y_pred == 1) & (target_pred == 1)).sum()
+
+    prec = tp / (tp + fp)
+    recall = tp / (tp + fn)
+
+    f1 = (2 * prec * recall) / (prec + recall)
+    return [f1, prec, recall]
